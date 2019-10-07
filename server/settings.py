@@ -149,4 +149,4 @@ class Production(Base):
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
-    ALLOWED_HOSTS = ['https://distress-thermometer-server.herokuapp.com/']
+    ALLOWED_HOSTS = ['distress-thermometer-server.herokuapp.com']
