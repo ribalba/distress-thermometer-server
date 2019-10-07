@@ -26,7 +26,6 @@ class PatientAdmin(admin.ModelAdmin):
         'other_issues'
         )
 
-Pia nyakairu
 admin_site.register(Patient, PatientAdmin)
 admin_site.register(User)
 admin_site.register(Group)
