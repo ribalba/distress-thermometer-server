@@ -61,7 +61,7 @@ class Base(Configuration):
         'x-csrftoken',
         'Teleo-Session-Token',
     )
-    CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:8001', 'https://distress-thermometer-server.herokuapp.com/')
+    CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:8001', 'https://distress-thermometer-server.herokuapp.com')
 
     ROOT_URLCONF = 'server.urls'
 
