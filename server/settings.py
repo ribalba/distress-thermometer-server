@@ -54,16 +54,7 @@ class Base(Configuration):
     ]
 
     CORS_ALLOW_CREDENTIALS = True
-    CORS_ALLOW_HEADERS = (
-        'x-requested-with',
-        'content-type',
-        'accept',
-        'origin',
-        'authorization',
-        'x-csrftoken',
-        'Teleo-Session-Token',
-    )
-    CORS_ORIGIN_WHITELIST = ('http://127.0.0.1:8001', 'https://distress-thermometer-server.herokuapp.com')
+    CORS_ORIGIN_ALLOW_ALL = True
 
     ROOT_URLCONF = 'server.urls'
 
