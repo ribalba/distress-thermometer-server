@@ -6,16 +6,31 @@ class Patient(models.Model):
     created = models.DateTimeField(auto_now=True)
 
     def first_name(self):
-        return self.data['user']['fname']
+        try:
+            return self.data['user']['fname']
+        except KeyError:
+            return ""
 
     def last_name(self):
-        return self.data['user']['lname']
+        try:
+            return self.data['user']['lname']
+        except KeyError:
+            return ""
 
     def therno_value(self):
-        return self.data['thermo']
+        try:
+            return self.data['thermo']
+        except KeyError:
+            return ""
 
     def issues(self):
-        return self.data['answers']
+        try:
+            return self.data['answers']
+        except KeyError:
+            return ""
 
     def other_issues(self):
-        return self.data['other']
+        try:
+            return self.data['other']
+        except KeyError:
+            return ""
