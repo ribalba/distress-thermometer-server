@@ -27,6 +27,11 @@ def build_email_body(messages,record, patient ):
 def send_emails(record, patient):
     email_to = {}
     all_messages = functools.reduce(reducer, record.data['result_set'])
+
+    if isinstance(all_messages, dict):
+        all_messages = [all_messages]
+
+    print (all_messages)
     for item in all_messages:
         # For now we don't send this
         # TODO for production we need to uncomment this
@@ -40,6 +45,11 @@ def send_emails(record, patient):
         if cm in email_to:
             email_to[cm].append(item['response']['text'])
         else:
+            print(cm)
+            print(email_to)
+            print(item)
+            print(item['response'])
+            print(item['response']['text'])
             email_to[cm] = [item['response']['text']]
 
     for email in email_to:
