@@ -25,6 +25,10 @@ def build_email_body(messages,record, patient ):
     return ret
 
 def send_emails(record, patient):
+
+    if 'result_set' not in record.data:
+        return
+
     email_to = {}
     all_messages = functools.reduce(reducer, record.data['result_set'])
 
@@ -45,11 +49,6 @@ def send_emails(record, patient):
         if cm in email_to:
             email_to[cm].append(item['response']['text'])
         else:
-            print(cm)
-            print(email_to)
-            print(item)
-            print(item['response'])
-            print(item['response']['text'])
             email_to[cm] = [item['response']['text']]
 
     for email in email_to:
