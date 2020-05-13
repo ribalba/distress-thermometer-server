@@ -162,34 +162,14 @@ class Production(Base):
     ALLOWED_HOSTS = ['distress-thermometer-server.herokuapp.com']
 
     LOGGING = {
-        key: Base.LOGGING[key]
-        for key in ['version',
-                    'disable_existing_loggers',
-                    'formatters',
-                    'filters',
-                    'handlers']
-    }
-    LOGGING['loggers'] = {
-        'django': {
-            'handlers': ['console'],
-            'level': 'INFO',
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+            },
         },
-        'django.db.backends': {
-            'handlers': ['console'],
-            'propagate': False,
-            'level': 'WARNING',
-        },
-        'django.template': {
-            'handlers': ['console'],
-            'propagate': False,
-            'level': 'WARNING',
-        },
-        'boto': {
-            'handlers': ['console'],
-            'propagate': False,
-            'level': 'WARNING',
-        },
-        'two_factor': {
+        'root': {
             'handlers': ['console'],
             'level': 'WARNING',
         },
