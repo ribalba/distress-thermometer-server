@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Patient
+from .models import Record, Patient
 from django.contrib.admin import AdminSite
 from django.utils.translation import ugettext_lazy
 from django.contrib.auth.models import User
@@ -15,17 +15,81 @@ class MyAdminSite(AdminSite):
 
 admin_site = MyAdminSite(name='myadmin')
 
-# Unregister the provided model admin
 
 class PatientAdmin(admin.ModelAdmin):
     list_display = (
-        'first_name',
-        'last_name',
-        'therno_value',
-        'issues',
-        'other_issues'
+        'pseudonym',
+        'phone_number',
+        'last_upload'
+      )
+
+
+    change_form_template = 'patient_view.html'
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        records = Record.objects.filter(patient_id=object_id)
+        extra_context = extra_context or {'records':records}
+        return super().change_view(
+            request, object_id, form_url, extra_context=extra_context,
         )
 
+    class Media:
+        js = ('https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.js',)
+        css = {
+             'all': ('https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.css',)
+        }
+
+
+class RecordAdmin(admin.ModelAdmin):
+    list_display = (
+        'pk',
+        'pseudonym',
+        'phone_number',
+        'diagnosis',
+        'quality_of_life',
+        'body',
+        'mind',
+        'living',
+        'uploaded'
+        )
+
+    list_filter = ('patient__pseudonym',)
+
+
+    # search_fields = (
+    #     'pk',
+    #     'first_name',
+    #     'last_name'
+    # )
+
+    fieldsets = (
+        (None, {
+            'fields': (
+                'pk',
+                'patient_link',
+                ('pseudonym',
+                'diagnosis'),
+                ('phone_number',
+                'provider_phone_number'),
+                'clinic_email',
+                'detail_response'
+            )
+        }),
+        # ('Advanced options', {
+        #     'classes': ('collapse',),
+        #     'fields': ('detail_response', ),
+        # }),
+    )
+
+
+    class Media:
+        js = ('https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.js',)
+        css = {
+             'all': ('https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.min.css',)
+        }
+
+
+admin_site.register(Record, RecordAdmin)
 admin_site.register(Patient, PatientAdmin)
 admin_site.register(User)
 admin_site.register(Group)

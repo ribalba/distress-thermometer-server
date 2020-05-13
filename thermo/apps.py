@@ -3,7 +3,8 @@ from django.contrib.admin.apps import AdminConfig
 
 
 class ThermoConfig(AppConfig):
-    name = 'thermo'
+    name = "thermo"
+    verbose_name = 'Distress Thermometer Data'
 
 
 class MyAdminConfig(AdminConfig):

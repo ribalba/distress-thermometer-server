@@ -38,7 +38,8 @@ class Base(Configuration):
         'django.contrib.messages',
         'django.contrib.staticfiles',
         'corsheaders',
-        'thermo'
+        #'thermo',
+        'thermo.apps.ThermoConfig'
     ]
 
     MIDDLEWARE = [
@@ -61,7 +62,7 @@ class Base(Configuration):
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [],
+            'DIRS': ['thermo/templates/'],
             'APP_DIRS': True,
             'OPTIONS': {
                 'context_processors': [
@@ -116,12 +117,15 @@ class Base(Configuration):
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
+
 class Local(Base):
     ''' Local configuration object
     '''
     DEBUG = values.BooleanValue(True)
 
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.0.2.2']
+
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 class Production(Base):
@@ -146,5 +150,13 @@ class Production(Base):
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+
+    EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+    MAILGUN_ACCESS_KEY = values.SecretValue(environ_prefix="",
+                                            environ_name="MAILGUN_API_KEY",
+                                            late_binding=True)
+    MAILGUN_SERVER_NAME = values.SecretValue(environ_prefix="",
+                                             environ_name="MAILGUN_SERVER",
+                                             late_binding=True)
 
     ALLOWED_HOSTS = ['distress-thermometer-server.herokuapp.com']

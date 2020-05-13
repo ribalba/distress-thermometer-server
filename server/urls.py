@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from thermo.admin import admin_site
 
-from thermo.views import save
+from thermo.views import save, clinics
+
 urlpatterns = [
     path('save', save),
+    path('clinics', clinics),
     path('', admin_site.urls),
 ]

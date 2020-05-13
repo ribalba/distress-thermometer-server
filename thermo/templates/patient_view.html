@@ -1,0 +1,31 @@
+{% extends "admin/change_form.html" %}
+
+{% block after_related_objects %}
+<table class="ui celled striped table">
+    <thead>
+        <tr>
+            <th>Record</th>
+            <th>Quality of Life</th>
+            <th>Body</th>
+            <th>Mind</th>
+            <th>Living</th>
+            <th>Uploaded</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for record in records %}
+        <tr>
+            <td><a href="/thermo/record/{{record.pk}}/change/">{{record.pk}}</a></td>
+            <td>{{record.quality_of_life}}</td>
+            <td>{{record.body}}</td>
+            <td>{{record.mind}}</td>
+            <td>{{record.living}}</td>
+            <td class="right aligned collapsing">{{record.uploaded}}</td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
