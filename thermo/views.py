@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST, require_GET
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
+from django.conf import settings
 
 from .models import Record, Patient
 import functools
@@ -45,7 +46,7 @@ def send_emails(record, patient):
         send_mail(
             'MyPath message for patient %s' % patient.pk,
             build_email_body(email_to[email], record, patient),
-            'mypath@rebelproject.org',
+            'mypath@%s' % settings.MAIL_DOMAIN,
             [email],
             fail_silently=False,
         )
