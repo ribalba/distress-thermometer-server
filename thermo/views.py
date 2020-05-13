@@ -26,7 +26,7 @@ def build_email_body(messages,record, patient ):
 
 def send_emails(record, patient):
 
-    if 'result_set' not in record.data:
+    if len(record.data['result_set']) == 0:
         return
 
     email_to = {}
