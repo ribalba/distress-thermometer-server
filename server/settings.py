@@ -156,7 +156,7 @@ class Production(Base):
                                             environ_name="MAILGUN_API_KEY",
                                             late_binding=True)
     MAILGUN_SERVER_NAME = values.SecretValue(environ_prefix="",
-                                             environ_name="MAILGUN_SERVER",
+                                             environ_name="MAILGUN_DOMAIN",
                                              late_binding=True)
 
     ALLOWED_HOSTS = ['distress-thermometer-server.herokuapp.com']
