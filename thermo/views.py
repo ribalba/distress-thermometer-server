@@ -21,8 +21,19 @@ def reducer(x,y):
 def build_email_body(messages,record, patient ):
     ret = "On %s Patient %s received the following message(s):\n\n" % (record.uploaded.ctime(), patient.id)
     for i in messages:
-        ret = ret + i + "\n\n"
+        ret += i + "\n\n"
+
+    ret += "\n\n"
+
+    ret += "Patient Details:\n Pseudonym: %s\n Phone Number: %s\n\n" % (patient.pseudonym, patient.phone_number)
+
+    ret += "Patient selected the following:\n"
+
+    for i in record.data['result_set']:
+        ret += " %s: %s\n" %(i['answer']['question'], i['answer']['answer'])
+
     return ret
+
 
 def send_emails(record, patient):
 
@@ -30,13 +41,13 @@ def send_emails(record, patient):
         return
 
     email_to = {}
-    all_messages = functools.reduce(reducer, record.data['result_set'])
+    messages_by_event = functools.reduce(reducer, record.data['result_set'])
 
-    if isinstance(all_messages, dict):
-        all_messages = [all_messages]
+    if isinstance(messages_by_event, dict):
+        messages_by_event = [messages_by_event]
 
-    print (all_messages)
-    for item in all_messages:
+    #print (messages_by_event)
+    for item in messages_by_event:
         # For now we don't send this
         # TODO for production we need to uncomment this
         # for email in item['response']['email_to']:
@@ -60,7 +71,6 @@ def send_emails(record, patient):
             fail_silently=False,
         )
 
-    print( )
 
 @require_POST
 @csrf_exempt
