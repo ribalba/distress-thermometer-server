@@ -8,6 +8,7 @@ from django.conf import settings
 
 from .models import Record, Patient
 import functools
+import anymail
 
 def reducer(x,y):
   if not isinstance(x, (list,)):
@@ -63,13 +64,22 @@ def send_emails(record, patient):
             email_to[cm] = [item['response']['text']]
 
     for email in email_to:
-        send_mail(
-            'MyPath message for patient %s' % patient.pk,
-            build_email_body(email_to[email], record, patient),
-            'mypath@%s' % settings.MAIL_DOMAIN,
-            [email],
-            fail_silently=False,
-        )
+        try:
+            send_mail(
+                'MyPath message for patient %s' % patient.pk,
+                build_email_body(email_to[email], record, patient),
+                'mypath@%s' % settings.MAIL_DOMAIN,
+                [email],
+                fail_silently=False,
+            )
+        except anymail.exceptions.AnymailRequestsAPIError:
+            send_mail(
+                'MyPath message for patient %s' % patient.pk,
+                build_email_body(email_to[email], record, patient),
+                'mypath@%s' % settings.MAIL_DOMAIN,
+                ['mypath@rebelproject.org'],
+                fail_silently=False,
+            )
 
 
 @require_POST
