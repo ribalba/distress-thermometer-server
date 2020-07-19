@@ -51,11 +51,11 @@ def send_emails(record, patient):
     for item in messages_by_event:
         # For now we don't send this
         # TODO for production we need to uncomment this
-        # for email in item['response']['email_to']:
-        #     if email in email_to:
-        #         email_to[email].append(item['response']['text'])
-        #     else:
-        #         email_to[email] = [item['response']['text']]
+        for email in item['response']['email_to']:
+            if email in email_to:
+                email_to[email].append(item['response']['text'])
+            else:
+                email_to[email] = [item['response']['text']]
 
         cm = record.data['user']['clinic_email']
         if cm in email_to:
@@ -103,8 +103,5 @@ def save(request):
 @require_GET
 def clinics(request):
     return JsonResponse([
-        {'name':'Springfield', 'email':'mypath@rebelproject.org'},
-        {'name':'Quahog', 'email':'mch266@uky.edu'},
-        {'name':'South Park', 'email':'earonoffspencer@health.ucsd.edu'},
-        {'name':'Citadel of Ricks', 'email':'ahubenko@ucsd.edu'}
+        {'name':'CT Surgery', 'email':'lesley.hubbard@uky.edu'},
         ], safe=False)
