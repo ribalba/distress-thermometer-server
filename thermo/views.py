@@ -74,7 +74,7 @@ def send_emails(record, patient):
             )
         except anymail.exceptions.AnymailRequestsAPIError:
             send_mail(
-                'MyPath message for patient %s' % patient.pk,
+                'Failed: MyPath message for patient %s' % patient.pk,
                 build_email_body(email_to[email], record, patient),
                 'mypath@%s' % settings.MAIL_DOMAIN,
                 ['mypath@rebelproject.org'],
