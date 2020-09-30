@@ -105,4 +105,5 @@ def clinics(request):
     return JsonResponse([
         {'name':'CT Surgery', 'email':'lesley.hubbard@uky.edu'},
         {'name':'Gynecologic Oncology', 'email':'b.moody@uky.edu'},
+        {'name':'Colorectal Cancer Clinic', 'email':'joann.wright@uky.edu'},
         ], safe=False)
