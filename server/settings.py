@@ -160,7 +160,7 @@ class Production(Base):
                                             environ_name="MAILGUN_API_KEY",
                                              late_binding=True),
         "DEBUG_API_REQUESTS": True,
-        "MAILGUN_SENDER_DOMAIN": MAIL_DOMAIN,
+        "MAILGUN_SENDER_DOMAIN": MAIL_DOMAIN[0],
     }
 
     ALLOWED_HOSTS = ['distress-thermometer-server.herokuapp.com']
