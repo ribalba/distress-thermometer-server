@@ -159,7 +159,6 @@ class Production(Base):
         "MAILGUN_API_KEY": values.SecretValue(environ_prefix="",
                                             environ_name="MAILGUN_API_KEY",
                                              late_binding=True),
-        "DEBUG_API_REQUESTS": True,
         "MAILGUN_SENDER_DOMAIN": MAIL_DOMAIN[0],
     }
 
