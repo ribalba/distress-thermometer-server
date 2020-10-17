@@ -106,4 +106,6 @@ def clinics(request):
         {'name':'CT Surgery', 'email':'lesley.hubbard@uky.edu'},
         {'name':'Gynecologic Oncology', 'email':'b.moody@uky.edu'},
         {'name':'Colorectal Cancer Clinic', 'email':'joann.wright@uky.edu'},
+        {'name':'Gregory Swords', 'email':'gesw222@uky.edu'},
+        {'name':"Test Clinic. Please don't use", 'email':'testing@rebelproject.org'},
         ], safe=False)
